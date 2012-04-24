@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Personer</title>
+<script type="text/javascript" src="./jquery-1.4.min.js"></script>
+</head>
+<body>
+	<H1>Velkommen</H1>
+
+
+	<body>
+	<div id="message"
+		style="display: none; background: #d0d0f0; padding: 12px">Message
+		Div</div>
+	<form action="rest/person/" method="POST">
+
+		<fieldset>
+			<legend>Opprett Person</legend>
+			<p>
+				navn<br /> <input id="navn" name="navn" /><br />
+			</p>
+			<p>
+				Persn id<br /> <input id="ids" name="ids" /><br />
+			</p>
+			<input type="submit" id="submit" />
+		</fieldset>
+	</form>
+</body>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+
+				$('#submit').click(
+						function() {
+							var navn = $("input#navn").val();
+							var ids = $("input#ids").val();
+
+							params = "navn=" + navn + "&id=" + ids;
+							$.ajax({
+								type : "PUT",
+								url : "rest/person",
+								data : params,
+								success : function(result) {
+									showMessage("Opprettet en person med navn "
+											+ result.navn + " og id "
+											+ result.ids);
+								}
+							});
+							return false;
+						});
+			});
+
+	function showMessage(msg) {
+		$('#message').html(msg);
+		$('#message').fadeIn('fast');
+		$('#message').delay(3000).fadeOut('slow');
+	}
+</script>
+
+</body>
+
+
+</html>
